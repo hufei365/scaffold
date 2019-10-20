@@ -3,7 +3,6 @@ const VERSION = require('../package.json').version;
 const chalk = require('chalk');
 
 let apply = (action, ...args) => {
-    //babel-env
     require(`./commands/${action}`)(...args);
 };
 /**

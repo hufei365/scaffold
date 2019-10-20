@@ -8,7 +8,7 @@ const downloadGit = require('../utils')
 
 let init =async (templateName, projectName)=>{
     //项目不存在
-    // if (!fs.existsSync(projectName)) {
+    if (!fs.existsSync(projectName)) {
         //命令行交互
         inquirer.prompt([
             {
@@ -44,6 +44,8 @@ let init =async (templateName, projectName)=>{
 
         }, ()=>{
             console.log('init failed~');
+        }).finally(()=>{
+            process.exit()
         });
     } else {
         //项目已经存在

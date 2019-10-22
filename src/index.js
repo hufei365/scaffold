@@ -15,20 +15,21 @@ let actionMap = {
     init: {
         description: 'generate a new project from a template',
         usages: [
-            'ofe init <templateName> <projectName>'
+            'ofe init <projectName>'
         ]
     },
-    config: {
-        alias: 'cfg',
-        description: 'config .oferc',
+    download: {
+        description: 'just download the source code to the <projectName> from a template',
         usages: [
-            'ofe config set <k> <v>',
-            'ofe config get <k>',
-            'ofe config remove <k>'
+            'ofe download <projectName>'
         ]
-
     },
-    //other commands
+    subtree:{
+        description: 'add the dependencies for the downloaded project',
+        usages: [
+            'ofe subtree <projectName>'
+        ]
+    }
 }
 
 // 添加 init / config 命令
@@ -37,16 +38,24 @@ Object.keys(actionMap).forEach((action) => {
         .description(actionMap[action].description)
         .alias(actionMap[action].alias) //别名
         .action(() => {
-            switch (action) {
-                case 'config':
-                    //配置
-                    apply(action, ...process.argv.slice(3));
-                    break;
-                case 'init':
-                    apply(action, ...process.argv.slice(3));
-                    break;
-                default:
-                    break;
+            try{
+                switch (action) {
+                    case 'subtree':
+                        //配置
+                        apply(action, ...process.argv.slice(3));
+                        break;
+                    case 'download':
+                        //配置
+                        apply(action, ...process.argv.slice(3));
+                        break;
+                    case 'init':
+                        apply(action, ...process.argv.slice(3));
+                        break;
+                    default:
+                        break;
+                }
+            } catch(e){
+                process.exit()
             }
         });
 });

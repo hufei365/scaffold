@@ -22,9 +22,5 @@
     "log-symbols": "^3.0.0",
     "ora": "^4.0.2"
   },
-  "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-preset-env": "^1.7.0"
-  }
+  "devDependencies": {}
 }

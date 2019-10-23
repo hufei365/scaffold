@@ -11,7 +11,6 @@ module.exports = async projectName => {
         finishInit()
     } catch (e) {
         console.log(e)
-        process.exit()
     }
 }
 

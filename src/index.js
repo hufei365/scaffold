@@ -2,8 +2,13 @@ const program = require('commander');
 const VERSION = require('../package.json').version;
 const chalk = require('chalk');
 
-let apply = (action, ...args) => {
-    require(`./commands/${action}`)(...args);
+let apply = async (action, ...args) => {
+    try {
+        await require(`./commands/${action}`)(...args);
+    } catch(e){
+        console.log(e)
+    }
+    process.exit()
 };
 /**
  * ofe commands
@@ -24,7 +29,7 @@ let actionMap = {
             'ofe download <projectName>'
         ]
     },
-    subtree:{
+    subtree: {
         description: 'add the dependencies for the downloaded project',
         usages: [
             'ofe subtree <projectName>'
@@ -38,25 +43,22 @@ Object.keys(actionMap).forEach((action) => {
         .description(actionMap[action].description)
         .alias(actionMap[action].alias) //别名
         .action(() => {
-            try{
-                switch (action) {
-                    case 'subtree':
-                        //配置
-                        apply(action, ...process.argv.slice(3));
-                        break;
-                    case 'download':
-                        //配置
-                        apply(action, ...process.argv.slice(3));
-                        break;
-                    case 'init':
-                        apply(action, ...process.argv.slice(3));
-                        break;
-                    default:
-                        break;
-                }
-            } catch(e){
-                process.exit()
+            switch (action) {
+                case 'subtree':
+                    //配置
+                    apply(action, ...process.argv.slice(3));
+                    break;
+                case 'download':
+                    //配置
+                    apply(action, ...process.argv.slice(3));
+                    break;
+                case 'init':
+                    apply(action, ...process.argv.slice(3));
+                    break;
+                default:
+                    break;
             }
+
         });
 });
 
